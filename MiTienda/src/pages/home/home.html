@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button
+              *ngIf="_usuarioProvider.activo()"
+              (click)="_usuarioProvider.cerrarSession()">
+        Salir
+      </button>
+    </ion-buttons>
+
+    <ion-title>
+      Mi Tienda
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="_carritoProvider.verCarrito()">
+        <ion-icon name="cart"></ion-icon>
+        <ion-badge class="carrito-numero" color="danger"
+                  *ngIf="_carritoProvider.items.length > 0">
+          {{_carritoProvider.items.length}}
+        </ion-badge>
+      </button>
+      &nbsp;
+      &nbsp;
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row *ngFor="let pares of _productosPrv.productos">
+      <ion-col *ngFor="let item of pares" (click)="verProducto(item)">
+        <img [src]="item.codigo | imagen">
+        <p>
+          {{item.producto}}
+          <br>
+          {{item.precioCompra | currency:'USD':true}}
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="siguientePagina($event)" [enabled]="masImagenes">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
