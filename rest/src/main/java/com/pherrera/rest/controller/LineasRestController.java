@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pherrera.rest.Constantes;
 import com.pherrera.rest.entity.Lineas;
 import com.pherrera.rest.services.LineasService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = Constantes.URL_ALLOW_ORIGIN, maxAge = 3600)
 @RestController
 @RequestMapping({"/lineas"})
 public class LineasRestController {

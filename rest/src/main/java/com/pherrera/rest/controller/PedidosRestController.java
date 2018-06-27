@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pherrera.rest.Constantes;
 import com.pherrera.rest.dto.EliminarPedidoDto;
 import com.pherrera.rest.dto.PedidoDto;
 import com.pherrera.rest.dto.PedidosUsuarioDto;
@@ -23,7 +24,7 @@ import com.pherrera.rest.entity.Ordenes;
 import com.pherrera.rest.services.LoginService;
 import com.pherrera.rest.services.PedidosService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = Constantes.URL_ALLOW_ORIGIN, maxAge = 3600)
 @RestController
 @RequestMapping({"/pedido"})
 public class PedidosRestController {
@@ -43,7 +44,7 @@ public class PedidosRestController {
 				if(pedidosService.agregarProductosPedido(ordenes, productosPedidoDto)) {
 					return ResponseEntity.ok(ordenes);
 				}else{
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("error", "Alguno de los productos del pedido no existen").build();
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).header("error", "Alguno de los productos del pedido no existen").build();
 				}
 			}else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("error", "Ocurrio un error al crear la orden").build();
@@ -61,7 +62,7 @@ public class PedidosRestController {
 			if(pedidosUsuarioDtoList != null && pedidosUsuarioDtoList.size() > 0) {
 				return ResponseEntity.ok(pedidosUsuarioDtoList);
 			}else{
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("error", "El usuario no tiene pedidos").build();
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).header("error", "El usuario no tiene pedidos").build();
 			}
 		}else{
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).header("error", "Id de usuario y/o token no son validos").build();

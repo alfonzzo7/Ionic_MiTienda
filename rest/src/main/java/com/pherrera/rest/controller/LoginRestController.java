@@ -3,7 +3,6 @@ package com.pherrera.rest.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.pherrera.rest.Constantes;
 import com.pherrera.rest.dto.LoginDto;
 import com.pherrera.rest.entity.Login;
 import com.pherrera.rest.services.LoginService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = Constantes.URL_ALLOW_ORIGIN, maxAge = 3600)
 @RestController
 @RequestMapping({"/login"})
 public class LoginRestController {
@@ -37,7 +37,7 @@ public class LoginRestController {
 			
 			return ResponseEntity.ok(login);
 		}else{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).header("error", "Usuario y/o contraseña no son validos").build();
+			return ResponseEntity.noContent().build();
 		}
     }
 }
